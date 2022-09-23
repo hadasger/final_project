@@ -1,77 +1,23 @@
 import string
+
 import pandas as pd
+from src.prompts import prompt_employee_age, prompt_employee_id, prompt_employee_name, prompt_employee_phone_number
+
+from src.validations import (validate_age, validate_id_number, validate_name,
+                             validate_phone_number)
 
 #creating file of employees data
 df_employees = pd.read_csv('./employees_data.csv')
-df_employees.head()
-# print(df_employees)
-
-
-
-#functions to check validation of input employees data
-
-def validate_name(emp_name: str):
-    return emp_name.isalpha()
-
-def validate_id_number(emp_id: str):
-    return (emp_id.isnumeric) and (len(emp_id) == 9)
-
-def validate_phone_number(emp_phone_number: str):
-    return (emp_phone_number.isnumeric) and (len(emp_phone_number) == 10)
-
-def validate_age(emp_age: int):
-    return (isinstance(emp_age, int)) and (emp_age >= 21) and (emp_age <= 67)
-      
-
-
 
 #asking the user to type a new employee data
 
-print('Enter an employee\'s name:')
-#check if the user entered a valid name
-while True:
-    emp_name = input()
-    if validate_name(emp_name) == True:
-        break
-    else:
-        print ('Enter a valid employee\'s name:')
-        
+emp_name = prompt_employee_name ()
 
-print(f'Enter {emp_name}\'s ID number:')
-#check if the user entered a valid ID number
-while True:
-    emp_id = input()
-    if validate_id_number(emp_id) == True:
-            break
-    elif len(emp_id) != 9:
-            print('Enter a 9 digits employee\'s ID mumber:')
-    else:
-        print ('Enter a valid employee\'s ID number:')
+emp_id = prompt_employee_id (emp_name)
 
+emp_phone_number = prompt_employee_phone_number (emp_name)
 
-print(f'Enter {emp_name}\'s phone number (digits only):')
-#check if the user entered a valid phonenumber
-while True:
-    emp_phone_number = input()
-    if validate_phone_number(emp_phone_number) == True:
-        break
-    elif len(emp_phone_number)==10:
-        print('Enter a 10 digits employee\'s phone mumber:')
-    else:
-        print ('Enter a valid employee\'s phone number:')
-
-print(f'Enter {emp_name}\'s age:')
-#check if the user entered a valid age
-while True:
-    emp_age = input()
-    if emp_age.isnumeric():
-        emp_age = int(emp_age)
-        if validate_age(emp_age) == True:
-            break
-        else:
-            print('Enter a valid employee\'s age between 21 to 67:')
-    else:
-        print ('Enter a valid employee\'s age:')
+emp_age = prompt_employee_age (emp_name)
 
 #add the new employee data to the employee_data file
 employee_details = [emp_id, emp_name, emp_phone_number, emp_age]

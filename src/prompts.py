@@ -52,3 +52,9 @@ def prompt_employee_age (emp_name):
                 print('Enter a valid employee\'s age between 21 to 67:')
         else:
             print ('Enter a valid employee\'s age:')
+
+
+def prompt_employee_new_file():
+    print('Enter a file of employees data name:')
+    file_of_emp = input()
+    return file_of_emp

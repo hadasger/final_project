@@ -1,5 +1,6 @@
 
 
+from pickletools import int4
 from .validations import (validate_age, validate_id_number, validate_name,
                              validate_phone_number)
 def prompt_employee_name ():
@@ -58,3 +59,19 @@ def prompt_employee_new_file():
     print('Enter a file of employees data name:')
     file_of_emp = input()
     return file_of_emp
+
+def delete_employee_from_file (df_employees):
+    print('Enter an employee\'s ID number to delete:')
+    #check if the user entered a valid ID number
+    while True:
+        emp_id = input()
+        if validate_id_number(emp_id) == True:
+            #check if the id number exist in dataframe
+            if (df_employees['ID'].eq(int(emp_id))).any() == True:
+                return df_employees.drop(df_employees.loc[df_employees['ID']== int(emp_id)].index)         
+            else:
+                print('The ID number doesn\'t exist')
+        elif len(emp_id) != 9:
+            print('Enter a 9 digits employee\'s ID mumber:')
+        else:
+            print ('Enter a valid employee\'s ID number:')

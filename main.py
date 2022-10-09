@@ -1,7 +1,7 @@
 import string
 
 import pandas as pd
-from src.prompts import prompt_employee_new_file, prompt_employee_age, prompt_employee_id, prompt_employee_name, prompt_employee_phone_number
+from src.prompts import delete_employee_from_file, prompt_employee_new_file, prompt_employee_age, prompt_employee_id, prompt_employee_name, prompt_employee_phone_number
 
 from src.validations import (validate_age, validate_employee_file, validate_id_number, validate_name,
                              validate_phone_number)
@@ -44,4 +44,9 @@ if validate_employee_file(df_employee_file) == True:
 else:
     print('Someting went wrong. We didn\'t add your file to the main data frame')
 
+
+#delete the employee from the file
+main_employees_data = delete_employee_from_file(main_employees_data)
+
 print(main_employees_data)
+
